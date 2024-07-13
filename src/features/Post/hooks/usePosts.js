@@ -25,7 +25,7 @@ export default function usePosts() {
         });
 
         socket.on('new_reply', (comment = {}) => {
-            if (comment.user?._id !== userId) dispatch(addReply(comment));
+            if (comment.user?._id !== userId) dispatch(addReply({ comment }));
         });
 
         socket.on('comment_edited', ({ _id, user_id, content } = {}) => {

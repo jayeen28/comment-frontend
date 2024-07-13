@@ -64,9 +64,26 @@ export const commentSlice = createSlice({
             state.comments = [action.payload, ...state.comments];
             state.pagination.totalDocs += 1;
         },
-
+        /**
+         * Adds a new reply comment to the state, considering nesting and reply count.
+         *
+         * This reducer handles adding a new reply comment to the comments list. It takes
+         * two approaches depending on the `directAdd` flag in the payload:
+         *
+         * This function ensures proper nesting of replies and updates the reply count
+         * for the parent comment when adding a new reply.
+         *
+         * @param {Object} action - The dispatched action object.
+         *   @prop {Object} action.payload - The data for the new reply comment.
+         *     @prop {Object} action.payload.comment - The new reply comment object.
+         *     @prop {boolean} [action.payload.directAdd=false] - Optional flag indicating direct addition.
+         */
         addReply: (state, action) => {
-            const comment = action.payload;
+            const { comment, directAdd = false } = action.payload;
+            if (directAdd) {
+                state.comments = [...state.comments, comment];
+                return;
+            }
             const existsAny = state.comments.some(c => c.replyOf === comment.replyOf);
             if (existsAny) state.comments = [...state.comments, comment];
             else state.comments = state.comments.map(c => {

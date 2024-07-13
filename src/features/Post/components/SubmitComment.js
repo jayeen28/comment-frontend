@@ -19,7 +19,7 @@ const SubmitComment = ({ replyOf }) => {
         submitComment(content, replyOf)
             .then(({ data }) => {
                 if (commentType === 'comment') dispatch(addComment(data));
-                else dispatch(addReply(data));
+                else dispatch(addReply({ comment: data, directAdd: true }));
                 inputRef.current.value = '';
             })
             .catch((e) => {
