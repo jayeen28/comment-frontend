@@ -84,7 +84,6 @@ export const commentSlice = createSlice({
          *   @prop {Object} action.payload - The new comment object.
          */
         addReplies: (state, action) => {
-            console.log(action.payload);
             state.comments = [...state.comments, ...action.payload || []];
         },
 

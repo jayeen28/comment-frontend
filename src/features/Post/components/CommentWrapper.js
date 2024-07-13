@@ -50,7 +50,7 @@ const CommentWrapper = ({ comment }) => {
                     showInput ?
                         <div style={{ marginLeft: '20px' }}>
                             <SubmitComment replyOf={comment._id} />
-                            <span className='link' onClick={() => setShowInput(false)}>Cancel</span>
+                            <span className={`link ${styles.reply_cancel_btn}`} onClick={() => setShowInput(false)}>Cancel</span>
                         </div> : <></>
                 }
             </div>
